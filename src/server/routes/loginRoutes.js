@@ -6,19 +6,21 @@ router.get('/', (req, res) => {
   return res.status(200).json();
 });
 
-//POST REQUEST TO /login
+//POST REQUEST TO /login - happens on 'login button' click. Successful login redirects to '/' endpoint
 router.post('/', (req, res) => {
-  return res.status(200).json();
+  //sets a cookie
+  //starts a session?
+  return res.status(201).json();
 });
 
 //UPDATE REQUEST TO /login
-router.put('/:id', (req, res) => {
-  return res.status(200).json();
-});
+// router.put('/:id', (req, res) => {
+//   return res.status(200).json();
+// });
 
 //DELETE REQUEST TO /login
-router.delete('/:id', (req, res) => {
-  return res.status(200).json();
-});
+// router.delete('/:id', (req, res) => {
+//   return res.status(200).json();
+// });
 
 module.exports = router;

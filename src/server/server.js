@@ -14,12 +14,23 @@ app.use(express.json());
 
 
 //ROUTES
+
+//MAIN PAGE - selecting sign up button will redirect to signup endpoint
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../src/client/index.html'));
 });
 
+//get all campaigns 
+app.get('/campaigns', );
+
+//get comments (using campaign id)
+app.get('/campaigns/comments');
+
+
+//LOGIN ROUTES
 app.use('/login', require('./routes/loginRoutes.js'));
 
+//SIGNUP ROUTES
 app.use('/signup', require('./routes/signupRoutes'));
 
 

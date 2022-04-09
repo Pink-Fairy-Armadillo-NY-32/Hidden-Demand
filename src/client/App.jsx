@@ -13,8 +13,6 @@ const App = () => {
        <section>
       <Main loginState={loggedIn}/>
        </section>
-       <LoginSignup />
-
      </div>
     );
 }

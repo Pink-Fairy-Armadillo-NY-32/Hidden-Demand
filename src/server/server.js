@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -17,7 +18,7 @@ app.use(express.json());
 
 //MAIN PAGE - selecting sign up button will redirect to signup endpoint
 app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../src/client/index.html'));
+  return res.status(200).sendFile(path.resolve(__dirname, '.../index.html'));
 });
 
 //get all campaigns 

@@ -3,21 +3,25 @@ const signupController = {};
 const bcrypt = require('bcrypt');
 
 signupController.createUser = async (req, res, next) => {
+  console.log('entered createUser middleware')
+  console.log(req.body);
   const {username, email, password} = req.body;
 
-  safePassword = bcrypt.hash(password, 10);
+  const safePassword = bcrypt.hash(password, 10);
 
   try{
     const text = `
     INSERT INTO users (username, email, password)
     VALUES ($1, $2, $3) 
-    RETURNING *
     `;
+    
     const params = [username, email, safePassword];
-    const result = await User.query(text, params);
+    // const result = await User.query(text, params);
+    // const existing = ``
+    // const existingUsername = await User.query()
     console.log(result);
     //what does result return? not sure at the moment - do we need to redirect to root endpoint?
-    res.locals.newUser = result;
+    res.locals.newUser = JSON.stringify(result);
     return next();
   }
   catch(err){

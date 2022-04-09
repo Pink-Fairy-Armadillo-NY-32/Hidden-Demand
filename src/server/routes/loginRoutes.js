@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const loginController = require('../controllers/loginController');
+
 
 //GET REQUEST TO /login
 router.get('/',  (req, res) => {

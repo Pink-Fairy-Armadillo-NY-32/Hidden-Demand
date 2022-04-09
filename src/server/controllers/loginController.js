@@ -3,7 +3,7 @@ const loginController = {};
 const bcrypt = require('bcrypt');
 
 loginController.userLogin = async (req, res, next) =>{
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   const verifiedPassword = bcrypt.compare(password, email);
 
@@ -12,7 +12,14 @@ loginController.userLogin = async (req, res, next) =>{
     
   }
   catch(err){
-
-  }
-
+    return next({
+        log: `loginController.userLogin: ERROR: ${err}`,
+        message: {err: 'Unable to login. Please try again'}
+      });
+    };
 }
+
+
+
+
+module.exports = loginController;

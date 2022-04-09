@@ -1,15 +1,20 @@
-import React, { Component } from 'react';
 
-class App extends Component {
-  render() {
+import Nav from './Containers/NavigationContainer.jsx';
+import Main from './Containers/MainContainer.jsx';
+import React, { useState } from 'react';
+
+const App = () => {
+    const [loggedIn, setLogin] = useState("something silly");
     return (
      <div className="app">
        <section>
-         <div>This is our app for now</div>
+      <Nav loginState={loggedIn}/>
+       </section>
+       <section>
+      <Main loginState={loggedIn}/>
        </section>
      </div>
     );
-  }
 }
 
 export default App;

@@ -16,6 +16,7 @@ const Nav = (props) =>  {
         <h1>Hidden Demand</h1>
         {console.log(props.loginState)}
         <Link to="/signup" >Sign Up</Link>
+        
       </nav>
       <Outlet />
        </section>

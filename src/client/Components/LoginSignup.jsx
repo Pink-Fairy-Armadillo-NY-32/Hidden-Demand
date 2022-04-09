@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 const LoginSignup = props => {
-    
- 
+  let navigate = useNavigate();    
+  const modalStyle = {
+    position: "fixed",
+    left: 100,
+    top: 100,
+    height: "200px",
+    width: "400px",
+    backgroundColor: "#ad90dc",
+    color: "##FFF",
+    fontSize: "20px",
+    borderStyle: "outset",
+    borderColor: "gray",
+    borderSize: "5px",
+    padding: "15px",
+    fontFamily: "'Oswald', 'sans-serif'",
+    boxShadow: "0px 0px 5px 5px",
+    display: "inline-block",
+    textAlign: "left"
+
+  };
 
   // Handles input boxes for storage of variable names
   const useInput = init => {
@@ -31,7 +50,7 @@ const LoginSignup = props => {
         password,
         email
       }
-
+      
       fetch('/signup', {// WHAT IS THE ENDPOINT HERE ? <<<<<<<<-------------------------------
 
         method: 'POST',
@@ -42,7 +61,7 @@ const LoginSignup = props => {
       })  
         .then(resp => resp.json())// WHAT IS THE RESPONSE HERE? WE USING COOKIES?
         .then(()=>{console.log(`success!`)})
-        .then(() => {props.history.push('/')})
+        .then(() => {navigate("../", { replace: true });})
         .catch(err=>{console.log(err)})
 
     }
@@ -67,7 +86,7 @@ const LoginSignup = props => {
         body: JSON.stringify(requestBody)
       })  
         .then(resp => resp.json()) // WHAT IS THE RESPONSE HERE? WE USING COOKIES?
-        .then(()=>{console.log(`success!`)}) 
+        .then(()=>{navigate("../", { replace: true });}) 
         // .then(() => {props.history.push('/')})
         .catch(err=>{console.log(err)})
 
@@ -75,31 +94,32 @@ const LoginSignup = props => {
     else {return console.log('check errors above')}
   }
 
-  // Conditionally render button text and email input based on whether user is signing up or logging in
+ // Conditionally render button text and email input based on whether user is signing up or logging in
   
-  let buttonText;
-  let emailInputDiv;
-  let buttonPress;
+ let buttonText;
+ let emailInputDiv;
+ let buttonPress;
 
-  if (props.type === 'login'){
-    buttonText = 'Log In';
-    buttonPress = sendLogInRequest;
-  }
+ if (props.type === 'login'){
+   buttonText = 'Log In';
+   buttonPress = sendLogInRequest;
+ }
 
-  if (props.type === 'signup'){
-    buttonText = 'Create Account';
+ if (props.type === 'signup'){
+   buttonText = 'Create Account';
 
-    emailInputDiv=[
-      <div className = "inputBox" id = "emailInput">
-        <label id="email">Email Address: </label>
-        <input name="email" placeholder="enter email" onChange={emailOnChange}/>
-      </div>
-    ]
-    buttonPress = sendSignUpRequest;
-  }
-// ------------------------------- Return HTML elements -----------------------------------------------------
-    return (
-      <main>
+   emailInputDiv=[
+     <div className = "inputBox" id = "emailInput">
+       <label id="email">Email Address: </label>
+       <input name="email" placeholder="enter email" onChange={emailOnChange}/>
+     </div>
+   ]
+   buttonPress = sendSignUpRequest;
+ }
+// ------------------------------- Return HTML elements ----------------------------------------------------- 
+      return (
+     createPortal(
+      <main style={modalStyle}>
           <div className = "inputBox" id = "usernameInput">
           <label id="username">User Name: </label>
           <input name="username" placeholder="enter username" onChange={usernameOnChange} />
@@ -113,9 +133,11 @@ const LoginSignup = props => {
         {emailInputDiv}
 
       <button type="button" className="btnMain" onClick={
-        buttonPress
-      }>{buttonText}</button>
-      </main>
+    buttonPress
+  }>{buttonText}</button>
+      </main>,
+      document.getElementById("modal_root")
+     )
    )
 }
 

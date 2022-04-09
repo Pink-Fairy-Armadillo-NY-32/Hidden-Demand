@@ -21,7 +21,7 @@ const LoginSignup = props => {
    const [ email, emailOnChange ] = useInput('');
     
   const sendSignUpRequest = ()=>{
-    console.log(username, password, email)
+    console.log('sending sign up request')
     if (username === ''){console.log('username must be input')}
     if (password === ''){console.log('password must be input')}
     if (email === ''){console.log('email must be input')}
@@ -50,6 +50,7 @@ const LoginSignup = props => {
   }
 
   const sendLogInRequest = ()=>{
+    console.log('sending log in request')
     if (username === ''){console.log('username must be input')}
     if (password === ''){console.log('password must be input')}
     if (username !== '' && password !== ''){
@@ -67,39 +68,54 @@ const LoginSignup = props => {
       })  
         .then(resp => resp.json()) // WHAT IS THE RESPONSE HERE? WE USING COOKIES?
         .then(()=>{console.log(`success!`)}) 
-        .then(() => {props.history.push('/')})
+        // .then(() => {props.history.push('/')})
         .catch(err=>{console.log(err)})
 
     }
     else {return console.log('check errors above')}
   }
-  
-  
 
+  // Conditionally render button text and email input based on whether user is signing up or logging in
+  
+  let buttonText;
+  let emailInputDiv;
+  let buttonPress;
+
+  if (props.type === 'login'){
+    buttonText = 'Log In';
+    buttonPress = sendLogInRequest;
+  }
+
+  if (props.type === 'signup'){
+    buttonText = 'Create Account';
+
+    emailInputDiv=[
+      <div className = "inputBox" id = "emailInput">
+        <label id="email">Email Address: </label>
+        <input name="email" placeholder="enter email" onChange={emailOnChange}/>
+      </div>
+    ]
+    buttonPress = sendSignUpRequest;
+  }
+// ------------------------------- Return HTML elements -----------------------------------------------------
     return (
       <main>
-          <div class = "inputBox" id = "usernameInput">
+          <div className = "inputBox" id = "usernameInput">
           <label id="username">User Name: </label>
           <input name="username" placeholder="enter username" onChange={usernameOnChange} />
         </div>
-        <div class = "inputBox" id = "passwordInput">
+        <div className = "inputBox" id = "passwordInput">
           <label id="password">Password: </label>
-          <input name="password" placeholder="enter password" onChange={passwordOnChange} />
+          <input name="password" type = "password" placeholder="enter password" onChange={passwordOnChange} />
         </div>
 
         {/* need to change this to conditionally render based on whether signing up or logging in */}
-        <div class = "inputBox" id = "emailInput">
-          <label id="email">Email Address: </label>
-          <input name="email" placeholder="enter email" onChange={emailOnChange}/>
-        </div>
+        {emailInputDiv}
 
       <button type="button" className="btnMain" onClick={
-        sendSignUpRequest
-      }>Create Account</button>
-
-
+        buttonPress
+      }>{buttonText}</button>
       </main>
-
    )
 }
 

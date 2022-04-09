@@ -36,14 +36,16 @@ CREATE TABLE public.users (
   OIDS=FALSE
 );
 
--- CREATE TABLE public.user_comments(
---     "comment" varchar,
---     "campaign_id" bigint NOT NULL,
---     "references" varchar,
---     "user_id" bigint NOT NULL,
--- )
+CREATE TABLE public.user_comments(
+    "comment" varchar,
+    "campaign_id" bigint NOT NULL,
+    "references" varchar,
+    "user_id" bigint NOT NULL
+) WITH (
+  OIDS = FALSE
+);
 
 
 ALTER TABLE public.campaign ADD CONSTRAINT "campaign_fk0" FOREIGN KEY ("posted_by") REFERENCES  public.users("user_id");
 ALTER TABLE public.user_comments ADD CONSTRAINT "user_comments_fk0" FOREIGN KEY ("campaign_id") REFERENCES public.campaign("id");
--- ALTER TABLE public.user_comments ADD CONSTRAINT "user_comments_fk1" FOREIGN KEY ("user_id") REFERENCES public.users("user_id");
+ALTER TABLE public.user_comments ADD CONSTRAINT "user_comments_fk1" FOREIGN KEY ("user_id") REFERENCES public.users("user_id");

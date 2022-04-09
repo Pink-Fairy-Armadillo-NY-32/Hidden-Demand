@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import LoginSignup from './Components/LoginSignup.jsx';
+
 
 class App extends Component {
   render() {
@@ -7,6 +9,8 @@ class App extends Component {
        <section>
          <div>This is our app for now</div>
        </section>
+       <LoginSignup />
+
      </div>
     );
   }

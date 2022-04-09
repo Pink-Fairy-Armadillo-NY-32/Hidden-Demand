@@ -7,12 +7,13 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App.jsx";
+import LoginSignup from './Components/LoginSignup.jsx';
 
 render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
-        <Route path="login" element={<Login-Signup />} />
+        <Route path="login" element={<LoginSignup />} />
       </Route>
       <Route
       path="*"

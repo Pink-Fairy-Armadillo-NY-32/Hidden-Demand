@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { render } from "react-dom";
 import {
   BrowserRouter,
@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App.jsx";
+import React from 'react';
 
 render(
   <BrowserRouter>

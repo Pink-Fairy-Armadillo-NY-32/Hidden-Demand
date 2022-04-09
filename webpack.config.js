@@ -3,7 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
+<<<<<<< HEAD
     'index': path.resolve(__dirname, './src/client/index.js')
+=======
+    'index': path.resolve(__dirname, 'src/client/index.js')
+>>>>>>> dev
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -36,7 +40,7 @@ module.exports = {
       overlay: true
     },
     static: {
-      directory: path.resolve(__dirname, 'client'),
+      directory: path.resolve(__dirname, 'src/client'),
       publicPath: '/'
     },
     headers: { 'Access-Control-Allow-Origin': '*' },

@@ -16,6 +16,7 @@ signupController.createUser = async (req, res, next) => {
     const params = [username, email, safePassword];
     const result = await User.query(text, params);
     console.log(result);
+    //what does result return? not sure at the moment - do we need to redirect to root endpoint?
     res.locals.newUser = result;
     return next();
   }

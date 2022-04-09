@@ -3,11 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-<<<<<<< HEAD
-    'index': path.resolve(__dirname, './src/client/index.js')
-=======
     'index': path.resolve(__dirname, 'src/client/index.js')
->>>>>>> dev
   },
   output: {
     path: path.resolve(__dirname, 'build'),

@@ -7,11 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App.jsx";
-<<<<<<< HEAD
-import React from 'react';
-=======
 import LoginSignup from './Components/LoginSignup.jsx'
->>>>>>> dev
 
 render(
   <BrowserRouter>

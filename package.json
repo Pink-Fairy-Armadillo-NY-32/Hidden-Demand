@@ -2,12 +2,7 @@
   "name": "hidden_demand",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
-  "main": "./src/client/index.js",
-  "type": "module",
-=======
   "main": "src/client/index.js",
->>>>>>> dev
   "scripts": {
     "start": "nodemon src/server/server.js",
     "prod": "webpack --node-env production && NODE_ENV=production nodemon src/server/server.js",

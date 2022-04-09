@@ -2,10 +2,10 @@
   "name": "hidden_demand",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/client/index.js",
   "scripts": {
-    "start": "nodemon server/server.js",
-    "prod": "webpack --node-env production && NODE_ENV=production nodemon server/server.js",
+    "start": "nodemon src/server/server.js",
+    "prod": "webpack --node-env production && NODE_ENV=production nodemon src/server/server.js",
     "dev": "webpack serve --node-env development --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm build/bundle.js"

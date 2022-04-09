@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2a9fac8a492855cd12bc567f35f3fb11fb930ea7
 import React from 'react';
 import { render } from "react-dom";
 import {

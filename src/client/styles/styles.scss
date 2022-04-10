@@ -1,0 +1,53 @@
+.modal {
+    position: relative;
+    top: 25%;
+    left: 25%;
+    width: 35%;
+    height: 15%;;
+    background-color:  #ad90dc;
+    color: #FFF;
+    font-size: 16px;
+    display:inline-block;
+    border-style: ridge;
+    border-color: gray;
+    border-width: 5px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 15px 15px lightgray;
+    padding: 15px;
+    font-family: Oswald, sans-serif;
+}
+
+.modal-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    opacity: 75%;
+}
+
+h3 {
+    margin: auto;
+}
+
+label {
+    display: inline-block;
+    width: 25%;
+    text-align: left;
+}
+
+input {
+    width: 60%;
+}
+
+button {
+    padding: 5px;
+    border: 5px;
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.btnMain {
+  background-color: rgb(70, 249, 142);
+}

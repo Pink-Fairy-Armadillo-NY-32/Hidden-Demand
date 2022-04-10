@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 const Main = (props) => {
 
 return (
-    <div></div>
+    <div>
+        {console.log("history in main container", history.state)}
+    </div>
 )
 
 }

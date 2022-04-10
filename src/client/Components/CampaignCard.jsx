@@ -11,13 +11,12 @@ const CampaignCard = props =>{
   return (
     <main>
       <div className = "campaignCard">
-        <button type="button" className="vote" onClick={console.log('upvoted')}>upvote</button>
-        <button type="button" className="vote" onClick={console.log('downvoted')}>downvote</button>
-        <br/>
-        <a className = "campaignName" href = {""/* THIS WILL NEED A URL TO RENDER CAMPAIGN COMMENTS(?) */}>test{campaignName}</a>
+        <a className = "campaignName" href = {""/* THIS WILL NEED A URL TO RENDER CAMPAIGN COMMENTS(?) */}>Bring Back The McLobster{campaignName}</a>
         <p className = "companyName">Petition to: {companyName}</p>
         <p className = "postedBy">Posted by: {postedBy}</p>
         <p className = "comments">{numComments} comments</p>
+          <button type="campaignButton" className="vote" onClick={console.log('upvoted')}>upvote</button>
+          <button type="campaignButton" className="vote" onClick={console.log('downvoted')}>downvote</button>
       </div>
     </main>
   );

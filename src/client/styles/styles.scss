@@ -31,6 +31,7 @@ body {
     font-weight: 400;
     float: right;
     justify-content: flex-end;
+    margin-right: 5px;
   }
 
 .modal {
@@ -96,4 +97,26 @@ h1 {
     margin: auto;
    padding-left: 20%;
    font-size: xx-large;
+}
+
+.campaignContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-style: double;
+    margin-top: 10px;
+    gap: 5px;
+    overflow: auto;
+}
+
+.campaignCard {
+    border-style: solid;
+    border-color: black;
+    margin: 5px;
+    padding: 10px;
+    background-color: lighten($maincolor, 20%);
+    border-radius: 10%;
+}
+.vote {
+    float:unset;
+    margin-top: auto;
 }

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-
+import Campaign from './CampainContainer.jsx'
+import AddCampaign from '../Components/AddCampaign.jsx';
 
 const Main = (props) => {
 
 return (
     <div>
-        {console.log("history in main container", history.state)}
+        <Campaign />
+        <AddCampaign />
     </div>
 )
 

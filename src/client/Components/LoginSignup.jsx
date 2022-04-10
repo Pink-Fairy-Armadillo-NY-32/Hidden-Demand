@@ -44,8 +44,8 @@ const LoginSignup = props => {
         .then(resp => resp.json())// WHAT IS THE RESPONSE HERE? WE USING COOKIES?
         .then(()=>{console.log(`success!`)})
         .then(() => {
-          history.pushState({loggedIn: true}, "signup success", '../');
-          navigate("../", { state: { loginState: true, userId: 'tbd', history: history.state }, replace: true });
+          //history.pushState({loggedIn: true}, "signup success", '../');
+          navigate("../", { state: { loginState: true, userId: 'tbd'}, replace: true });
         })
         .catch(err=>{console.log(err)})
 

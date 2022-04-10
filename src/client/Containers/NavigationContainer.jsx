@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import React from 'react';
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Nav = (props) =>  {
     //const loginState = props.loginState;
     const {state} = useLocation();
+    const navigate = useNavigate();
     
     return (
      <div className="nav">
        <section>
       <nav id='headerbar' >
-        
-        <Link to={{pathname: "/login"}} id='headerbutton' type='button' className='top'>Login</Link>
-        <h2>Hidden Demand</h2>
+        <h1>Hidden Demand</h1>
         {console.log(state?.loginState, state?.history.loginState)}
-        <Link to="/signup" className='top' id='signupbutton' >Sign Up</Link>
+        <span>
+        <button onClick={() => navigate('/login')} className='top' id='headerbutton' >Login</button>
+        <button onClick={() => navigate('/signup')} className='top' id='signupbutton' >Sign Up</button>
+        </span>
         <Outlet />
       </nav>
        </section>

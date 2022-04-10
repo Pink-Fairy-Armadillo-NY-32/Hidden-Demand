@@ -1,5 +1,9 @@
-:root {
-    --maincolor: #9b76d3;
+$maincolor: #769dd3;
+$secondarycolor: invert($maincolor);
+$tertiarycolor: complement($maincolor);
+
+body {
+    font-family: 'Oswald', 'sans-serif';
 }
   .top {
     display: block;
@@ -8,34 +12,34 @@
   }
   
   #headerbar {
-      background-color: var(--maincolor);
+      background-color: $maincolor;
       height: 60px;
       width: 100%;
       top: 0px;
       display: flex;
       justify-content: space-between;
   }
+
+
 #headerbutton, #signupbutton {
-       color: #ffe484;
-       font-size: 16px;
-       height: min-content;
-       padding: 8px 15px;
-       border: 3px solid #ffe484;
-       border-radius: 5px;
-       border-width: 1px;
-       background-color: cyan;
-       margin-right: 15px; 
-       color: black;
-       width: 55px;
-       float: right;
-    }
+    color: black;
+    background-color: $tertiarycolor;
+    border-radius: 50px;
+    height: 2em;
+    width: 6em;
+    font-size: large;
+    font-weight: 400;
+    float: right;
+    justify-content: flex-end;
+  }
+
 .modal {
     position: relative;
     top: 25%;
     left: 35%;
     width: 35%;
-    height: 15%;;
-    background-color:  #ad90dc;
+    height: auto;
+    background-color: $maincolor;
     color: #FFF;
     font-size: 16px;
     display:inline-block;
@@ -43,9 +47,7 @@
     border-color: gray;
     border-width: 5px;
     border-radius: 3px;
-    box-shadow: 0px 0px 15px 15px lightgray;
     padding: 15px;
-    font-family: Oswald, sans-serif;
 }
 
 .modal-wrapper {
@@ -54,7 +56,7 @@
     top: 0;
     width: 100%;
     height: 100vh;
-    background-color: white;
+    background-color: ligthen(($tertiarycolor), 30%);
     opacity: 75%;
 }
 
@@ -64,7 +66,7 @@ h3 {
 
 label {
     display: inline-block;
-    width: 25%;
+    width: 30%;
     text-align: left;
 }
 
@@ -74,16 +76,24 @@ input {
 
 button {
     padding: 5px;
-    border: 5px;
+    border: 3px;
     margin-top: 30px;
     margin-left: 15px;
+    float: right;
+    border-style: outset;
+    border-radius: 5px;
+    border-color: silver;
 }
 
 .btnMain {
-  background-color: rgb(70, 249, 142);
+  background-color: green;
+  color: white;
+  font-style: bold;
 }
 
-h2 {
-    font-size: x-large;
+h1 {
     color: white;
+    margin: auto;
+   padding-left: 20%;
+   font-size: xx-large;
 }

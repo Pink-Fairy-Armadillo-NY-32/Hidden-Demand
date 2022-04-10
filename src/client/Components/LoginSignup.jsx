@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //import { Link, withRouter } from 'react-router-dom';
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
 const LoginSignup = props => {

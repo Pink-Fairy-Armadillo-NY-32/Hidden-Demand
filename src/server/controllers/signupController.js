@@ -1,13 +1,13 @@
 const User = require('../models/signupModel.js')
 const signupController = {};
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 signupController.createUser = async (req, res, next) => {
   console.log('entered createUser middleware')
   console.log(req.body);
   const {username, email, password} = req.body;
 
-  const safePassword = bcrypt.hash(password, 10);
+  // const safePassword = bcrypt.hash(password, 10);
 
   try{
     const text = `

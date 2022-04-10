@@ -1,11 +1,11 @@
 const { Pool } = require('pg');
 require('dotenv').config();
-
-// const PG_URI = process.env.PG_URI;
-const PG_URI = 'postgres://lbpmpknv:2DskAUf99JYKMVce219nHYIuShKkAG5G@batyr.db.elephantsql.com/lbpmpknv';
+/** CHANGED DATABASE CONNECTION */
+const PG_URI = 'postgres://lfxjrfqt:u7z6LjLXwJl4LDaiRhZUdnAkIInq9UyV@batyr.db.elephantsql.com/lfxjrfqt';
+// const PG_URI = 'postgres://lbpmpknv:2DskAUf99JYKMVce219nHYIuShKkAG5G@batyr.db.elephantsql.com/lbpmpknv';
 
 const pool = new Pool ({
-  conectionString: PG_URI
+  connectionString: PG_URI
 });
 
 

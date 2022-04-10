@@ -22,10 +22,10 @@ app.get('/', (req, res) => {
 });
 
 //get all campaigns 
-app.get('/campaigns', );
+app.use('/campaigns', require('./routes/campaignsRoutes'));
 
 //get comments (using campaign id)
-app.get('/campaigns/comments');
+app.use('/campaigns/comments', );
 
 
 //LOGIN ROUTES
@@ -52,5 +52,5 @@ app.use((err, req, res, next) => {
  return res.status(errorObj.status).json(errorObj.message);
 });
 
-
-app.listen(PORT, ()=> {console.log(`Listening on port ${PORT}...`);});
+/** CHANGED PORT ARGUMENT */
+app.listen(3000, ()=> {console.log(`Listening on port ${PORT}...`);});

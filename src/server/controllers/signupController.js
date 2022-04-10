@@ -20,6 +20,7 @@ signupController.createUser = async (req, res, next) => {
     
     const params = [username, email, password];
     const result = await User.query(text, params);
+    res.locals.user = result.Result;
     // const existing = ``
     // const existingUsername = await User.query(username)
     //if(existingUsername === username){

@@ -1,0 +1,121 @@
+$maincolor: #769dd3;
+$secondarycolor: invert($maincolor);
+$tertiarycolor: complement($maincolor);
+
+body {
+    font-family: 'Oswald', 'sans-serif';
+}
+  .top {
+    display: block;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  
+  #headerbar {
+      background-color: $maincolor;
+      height: 60px;
+      width: 100%;
+      top: 0px;
+      display: flex;
+      justify-content: space-between;
+  }
+
+
+#headerbutton, #signupbutton {
+    color: black;
+    background-color: $tertiarycolor;
+    border-radius: 50px;
+    height: 2em;
+    width: 6em;
+    font-size: large;
+    font-weight: 400;
+    float: right;
+    justify-content: flex-end;
+    margin-right: 5px;
+  }
+
+.modal {
+    position: relative;
+    top: 25%;
+    left: 35%;
+    width: 35%;
+    height: auto;
+    background-color: $maincolor;
+    color: #FFF;
+    font-size: 16px;
+    display:inline-block;
+    border-style: ridge;
+    border-color: gray;
+    border-width: 5px;
+    border-radius: 3px;
+    padding: 15px;
+}
+
+.modal-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}
+
+h3 {
+    margin: auto;
+}
+
+label {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+}
+
+input {
+    width: 60%;
+}
+
+button {
+    padding: 5px;
+    border: 3px;
+    margin-top: 30px;
+    margin-left: 15px;
+    float: right;
+    border-style: outset;
+    border-radius: 5px;
+    border-color: silver;
+}
+
+.btnMain {
+  background-color: green;
+  color: white;
+  font-style: bold;
+}
+
+h1 {
+    color: white;
+    margin: auto;
+   padding-left: 20%;
+   font-size: xx-large;
+}
+
+.campaignContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-style: double;
+    margin-top: 10px;
+    gap: 5px;
+    overflow: auto;
+}
+
+.campaignCard {
+    border-style: solid;
+    border-color: black;
+    margin: 5px;
+    padding: 10px;
+    background-color: lighten($maincolor, 20%);
+    border-radius: 10%;
+}
+.vote {
+    float:unset;
+    margin-top: auto;
+}

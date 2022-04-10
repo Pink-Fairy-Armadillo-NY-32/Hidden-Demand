@@ -1,29 +1,11 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+//import { Link, withRouter } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
 const LoginSignup = props => {
   let navigate = useNavigate();    
-  const modalStyle = {
-    position: "fixed",
-    left: 100,
-    top: 100,
-    height: "200px",
-    width: "400px",
-    backgroundColor: "#ad90dc",
-    color: "##FFF",
-    fontSize: "20px",
-    borderStyle: "outset",
-    borderColor: "gray",
-    borderSize: "5px",
-    padding: "15px",
-    fontFamily: "'Oswald', 'sans-serif'",
-    boxShadow: "0px 0px 5px 5px",
-    display: "inline-block",
-    textAlign: "left"
-
-  };
+ 
 
   // Handles input boxes for storage of variable names
   const useInput = init => {
@@ -61,7 +43,10 @@ const LoginSignup = props => {
       })  
         .then(resp => resp.json())// WHAT IS THE RESPONSE HERE? WE USING COOKIES?
         .then(()=>{console.log(`success!`)})
-        .then(() => {navigate("../", { replace: true });})
+        .then(() => {
+          //history.pushState({loggedIn: true}, "signup success", '../');
+          navigate("../", { state: { loginState: true, userId: 'tbd'}, replace: true });
+        })
         .catch(err=>{console.log(err)})
 
     }
@@ -86,8 +71,10 @@ const LoginSignup = props => {
         body: JSON.stringify(requestBody)
       })  
         .then(resp => resp.json()) // WHAT IS THE RESPONSE HERE? WE USING COOKIES?
-        .then(()=>{navigate("../", { replace: true });}) 
-        // .then(() => {props.history.push('/')})
+        .then(()=>{
+          history.pushState({loggedIn: true}, "signup success", '../');
+          navigate("../", { state: { loginState: true, userId: 'tbd', history: history.state }, replace: true });
+        })
         .catch(err=>{console.log(err)})
 
     }
@@ -99,19 +86,26 @@ const LoginSignup = props => {
  let buttonText;
  let emailInputDiv;
  let buttonPress;
+ let header;
 
+ const cancelPress = () => {
+  history.pushState({loggedIn: false}, "canceled", '../');
+  navigate("../", { state: { loginState: false, userId: 'tbd', history: history.state }, replace: true });
+ }
  if (props.type === 'login'){
+   header = "Log In"
    buttonText = 'Log In';
    buttonPress = sendLogInRequest;
  }
 
  if (props.type === 'signup'){
+   header = "Sign Up"
    buttonText = 'Create Account';
 
    emailInputDiv=[
      <div className = "inputBox" id = "emailInput">
        <label id="email">Email Address: </label>
-       <input name="email" placeholder="enter email" onChange={emailOnChange}/>
+       <input className='input' name="email" placeholder="enter email" onChange={emailOnChange}/>
      </div>
    ]
    buttonPress = sendSignUpRequest;
@@ -119,23 +113,29 @@ const LoginSignup = props => {
 // ------------------------------- Return HTML elements ----------------------------------------------------- 
       return (
      createPortal(
-      <main style={modalStyle}>
-          <div className = "inputBox" id = "usernameInput">
-          <label id="username">User Name: </label>
-          <input name="username" placeholder="enter username" onChange={usernameOnChange} />
-        </div>
-        <div className = "inputBox" id = "passwordInput">
-          <label id="password">Password: </label>
-          <input name="password" type = "password" placeholder="enter password" onChange={passwordOnChange} />
-        </div>
+      <div
+          className="modal-wrapper"
+          onClick={() => history.back()}>
+        <div
+            className="modal"
+            onClick={e => e.stopPropagation()}>
+            <h3>{header}</h3>
+            <div className = "inputBox" id = "usernameInput">
+              <label id="username">User Name: </label>
+              <input className='input' name="username" placeholder="enter username" onChange={usernameOnChange} />
+            </div>
+            <div className = "inputBox" id = "passwordInput">
+              <label id="password">Password: </label>
+              <input className='input' name="password" type = "password" placeholder="enter password" onChange={passwordOnChange} />
+            </div>
 
-        {/* need to change this to conditionally render based on whether signing up or logging in */}
-        {emailInputDiv}
+            {/* need to change this to conditionally render based on whether signing up or logging in */}
+            {emailInputDiv}
 
-      <button type="button" className="btnMain" onClick={
-    buttonPress
-  }>{buttonText}</button>
-      </main>,
+          <button type="button" className="btnMain" onClick={buttonPress}>{buttonText}</button>
+          <button type="button" className="btnCancel" onClick={cancelPress}>Cancel</button>
+        </div>
+      </div>,
       document.getElementById("modal_root")
      )
    )

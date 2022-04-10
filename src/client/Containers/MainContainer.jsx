@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-
+import Campaign from './CampainContainer.jsx'
+import AddCampaign from '../Components/AddCampaign.jsx';
 
 const Main = (props) => {
 
 return (
-    <div></div>
+    <div>
+        <Campaign />
+        <AddCampaign />
+    </div>
 )
 
 }

@@ -3,10 +3,10 @@ const signupController = require('../controllers/signupController');
 const router = express.Router();
 
 
-//GET REQUEST TO /signup
-router.get('/', (req, res) => {
-  return res.status(200).json();
-});
+// //GET REQUEST TO /signup
+// router.get('/', (req, res) => {
+//   return res.status(200).json();
+// });
 
 //POST REQUEST TO /signup - happens on 'signup button' click. Successful signup redirects to '/' endpoint
 router.post('/', signupController.createUser, (req, res) => {
@@ -15,7 +15,7 @@ router.post('/', signupController.createUser, (req, res) => {
   //sets a cookie
   //starts a session?
   
-  return res.status(201).send('this worked!');
+  return res.status(201).send('Successfully signed up!');
 });
 
 //UPDATE REQUEST TO /signup

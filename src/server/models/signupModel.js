@@ -17,7 +17,7 @@ module.exports = {
     try{
     console.log('query executed', text);
     const result = await pool.query(text, params, callback)
-    console.log("result", result);
+    // console.log("result", result);
     return result;
     } 
     catch(e){

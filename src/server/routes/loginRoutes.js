@@ -12,7 +12,7 @@ router.get('/',  (req, res) => {
 router.post('/', loginController.userLogin, (req, res) => {
   //sets a cookie
   //starts a session?
-  return res.status(201).json();
+  return res.status(201).send({message:'login successful!'});
 });
 
 //UPDATE REQUEST TO /login

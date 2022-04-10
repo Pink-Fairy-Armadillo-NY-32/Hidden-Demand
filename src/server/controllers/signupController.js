@@ -1,6 +1,6 @@
 const User = require('../models/signupModel.js')
 const signupController = {};
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 signupController.createUser = async (req, res, next) => {
   console.log('entered createUser middleware')

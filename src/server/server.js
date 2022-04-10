@@ -25,8 +25,7 @@ app.get('/', (req, res) => {
 app.use('/campaigns', require('./routes/campaignsRoutes'));
 
 //get comments (using campaign id)
-app.use('/campaigns/comments', );
-
+app.use('/campaigns/comments', require('./routes/commentsRouter'));
 
 //LOGIN ROUTES
 app.use('/login', require('./routes/loginRoutes.js'));

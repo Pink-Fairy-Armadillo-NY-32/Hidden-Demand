@@ -11,7 +11,7 @@ const Nav = (props) =>  {
        <section>
       <nav id='headerbar' >
         <h1>Hidden Demand</h1>
-        {console.log(state?.loginState, state?.history.loginState)}
+        {console.log(state?.loginState, state?.user_id, state?.username)}
         <span>
         <button onClick={() => navigate('/login')} className='top' id='headerbutton' >Login</button>
         <button onClick={() => navigate('/signup')} className='top' id='signupbutton' >Sign Up</button>

@@ -10,7 +10,7 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App.jsx";
-import LoginSignup from './Components/LoginSignup.jsx'
+import LoginSignup from './Components/LoginSignup.jsx';
 
 render(
   <BrowserRouter>

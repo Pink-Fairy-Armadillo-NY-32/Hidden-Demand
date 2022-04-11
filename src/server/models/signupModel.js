@@ -1,18 +1,28 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+// require('dotenv').config();
 
 // const PG_URI = process.env.PG_URI;
-const PG_URI = 'postgres://lbpmpknv:2DskAUf99JYKMVce219nHYIuShKkAG5G@batyr.db.elephantsql.com/lbpmpknv';
+const PG_URI = 'postgres://lbpmpknv:0fp-cPwpwvVTw3R_tJmv4vvS-UmrPHIy@batyr.db.elephantsql.com/lbpmpknv';
+// const PG_URI = 'postgres://wcphwqir:uCT_XLIaSqGo3L5isHrtphCaW2vyW7ae@raja.db.elephantsql.com/wcphwqir'
+// 2DskAUf99JYKMVce219nHYIuShKkAG5G
 
 const pool = new Pool ({
-  conectionString: PG_URI
+  connectionString: PG_URI,
+ 
 });
 
 
 module.exports = {
-  query: (text, params, callback) => {
+  query: async (text, params, callback) => {
+    try{
     console.log('query executed', text);
-    return pool.query(text, params, callback);
+    const result = await pool.query(text, params, callback)
+    console.log("result", result);
+    return result;
+    } 
+    catch(e){
+      console.log("error: ", e)
+    }
   }
 };
 

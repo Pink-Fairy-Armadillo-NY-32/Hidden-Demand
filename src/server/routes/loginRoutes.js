@@ -14,7 +14,7 @@ const sessionController = require('../controllers/sessionController')
 router.post('/', loginController.userLogin, sessionController.createSession, cookieController.setCookie, (req, res) => {
   //sets a cookie
   //starts a session?
-  return res.status(200).json({user_id: res.locals.user_id});
+  return res.status(200).json({user_id: res.locals.user_id, username: res.locals.username});
 });
 
 //UPDATE REQUEST TO /login

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 const CampaignPage = props =>{
-  // Deconstruct values off of props
-  // const {name, company, posted_by, numComments, numVotes } = props.campaign;
+  let navigate = useNavigate();    
 
-  const id=1
+  // Deconstruct values off of props
+  const location = useLocation();
+  const {id, name, company, posted_by, numComments, numVotes, description, username } = location.state;
+  console.log("state", location.state)
+
   const fetchURL = '/campaigns/comments/'+ id;
 
   // Handles input boxes for storage of variable names
@@ -39,8 +44,8 @@ const CampaignPage = props =>{
         .then(resp => resp.json())
         .then(()=>{console.log(`success!`)})
         .then(() => {
-          history.pushState({loggedIn: true}, "comment post success", './');
-          navigate("./", { state: { loginState: true, userId: 'tbd'}, replace: true });
+          navigate("/",{state: {loginState: true, username: state.username, userid: state.userid}}, {replace: true });
+          return;
         })
         .catch(err=>{console.log(err)})
 
@@ -66,15 +71,21 @@ const CampaignPage = props =>{
       .catch(err=>{console.log(err)})
   },[])
 
+const cancelPress = () => {
+  history.pushState({loggedIn: false}, "canceled", '../');
+  navigate("../", { state: { loginState: false, userId: 'tbd', history: history.state }, replace: true });
+ }
 
 // ------------------------------- Return HTML elements -----------------------------------------------------
   return (
-    <main>
+    createPortal(
+    <main className="modal-wrapper">
+      <div className='modal'>
       <div className = "campaign">
-        <h1 className = "campaignTitle">BRING BACK THE</h1>
-        <h2 className = "campaignCompany">From <a>Mcdonde</a></h2>
-        <h4 className = "campaignPoster">Campaign Started By</h4>
-        <p className="campaignDescription">Insert description here</p>
+        <h1 className = "campaignTitle">BRING BACK THE {name}</h1>
+        <h2 className = "campaignCompany">From <a href = "mcdonalds.com">{company}</a></h2>
+        <h4 className = "campaignPoster">Campaign Started By {username}</h4>
+        <p className="campaignDescription">{description}</p>
         <div className = "commentBox">
           {data && data.map(comments => <p> {comments.comment} <i>posted by {comments.username}</i></p>)}
         </div>
@@ -84,7 +95,11 @@ const CampaignPage = props =>{
           </div>
         <button type="button" className="btnMain" onClick={addComment}>Add Comment</button>
       </div>
-    </main>
+      </div>
+      <button type="button" className="btnCancel" onClick={cancelPress}>Close</button>
+    </main>,
+     document.getElementById("modal_root")
+    )
   );
 
 };

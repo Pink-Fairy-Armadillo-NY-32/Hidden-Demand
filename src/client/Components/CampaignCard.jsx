@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+
 
 const CampaignCard = props =>{
 
-  // Deconstruct values off of props
-  const {name, company, posted_by, numComments, numVotes } = props.campaign;
+  const {id, name, company, posted_by, numComments, description, username } = props.campaign;
 
+
+  console.log(props.campaign)
 // ------------------------------- Return HTML elements -----------------------------------------------------
   return (
     <main>
       <div className = "campaignCard">
-        <a className = "campaignName" href = {""/* THIS WILL NEED A URL TO RENDER CAMPAIGN COMMENTS(?) */}>Bring Back The {name}</a>
+        <Link to="campaignPage" state ={{id, name, company, posted_by, numComments, description, username}} >Bring Back The {name}</Link>
         <p className = "companyName">Petition to: {company}</p>
-        <p className = "postedBy">Posted by: {posted_by}</p>
+        <p className = "postedBy">Posted by: {username}</p>
         <p className = "comments">{numComments} comments</p>
           <button type="campaignButton" className="vote" >upvote</button>
           <button type="campaignButton" className="vote" >downvote</button>
       </div>
+      < Outlet />
     </main>
   );
 

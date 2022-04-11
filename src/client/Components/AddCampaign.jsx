@@ -28,7 +28,7 @@ const AddCampaign = (props) => {
     if (name === ''){console.log('product name must be input')}
     if (company === ''){console.log('company name must be input')}
     if (description === ''){console.log('product/campaign description must be input')}
-    if (name !== '' && company !== '' && desc !== ''){
+    if (name !== '' && company !== '' && description !== ''){
       const requestBody = {
         name,
         company,
@@ -47,7 +47,7 @@ const AddCampaign = (props) => {
         .then(resp => resp.json())
         .then(()=>{console.log(`success!`)})
         .then(() => {
-          navigate("/",{state: {loginState: true, username: state.username}}, {replace: true });
+          navigate("/",{state: {loginState: true, username: state.username, userid: state.userid}}, {replace: true });
           return;
         })
         .catch(err=>{console.log(err)})
@@ -57,7 +57,7 @@ const AddCampaign = (props) => {
   }   
 
   const cancelPress = () => {
-    navigate("/", {state: {loginState: true, username: state.username}}, { replace: true });
+    navigate("/", {state: {loginState: true, username: state.username, userid: state.userid}}, { replace: true });
     return;
    }
 

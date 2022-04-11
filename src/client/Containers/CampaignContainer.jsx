@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CampaignCard from '../Components/CampaignCard.jsx'
+import { Outlet } from 'react-router-dom';
 
-const Container = (props) => {
+const CampaignContainer = (props) => {
 
   const [data, setData] = useState(null);
 
@@ -22,9 +23,11 @@ const Container = (props) => {
 return (
     <section className='campaignContainer'>
       {data && data.map(campaign=><CampaignCard key = {"campaign"+ campaign.id} campaign = {campaign}/>)}
+      < Outlet />
     </section>
+
 )
 }
 
 
-export default Container;
+export default CampaignContainer;

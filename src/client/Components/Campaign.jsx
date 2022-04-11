@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 const CampaignPage = props =>{
-  // Deconstruct values off of props
-  // const {name, company, posted_by, numComments, numVotes } = props.campaign;
+  let navigate = useNavigate();    
 
-  const id=1
+  // Deconstruct values off of props
+  const location = useLocation();
+  const {id, name, company, posted_by, numComments, numVotes, description, username } = location.state;
+  console.log("state", location.state)
+
   const fetchURL = '/campaigns/comments/'+ id;
 
   // Handles input boxes for storage of variable names
@@ -20,7 +25,7 @@ const CampaignPage = props =>{
   const [ comment, commentOnChange ] = useInput('');
   
   // Function for adding comment to database
-  const addComment = ()=>{
+  const addComment = async ()=>{
     console.log('adding comment!')
 
     if (comment === ''){console.log('no comment was input')}
@@ -28,22 +33,20 @@ const CampaignPage = props =>{
       const requestBody = {
         comment
       }
-      
-      fetch(fetchURL, {
+    try {  
+      const res = await fetch(fetchURL, {
         method: 'POST',
         headers: {
         'Content-Type': 'Application/JSON'
         },
         body: JSON.stringify(requestBody)
-      })  
-        .then(resp => resp.json())
-        .then(()=>{console.log(`success!`)})
-        .then(() => {
-          history.pushState({loggedIn: true}, "comment post success", './');
-          navigate("./", { state: { loginState: true, userId: 'tbd'}, replace: true });
-        })
-        .catch(err=>{console.log(err)})
+      });
+      const result = await res.json();
 
+      }
+      catch(err) {
+        console.log(err)
+      }
     }
     else {return console.log('check errors above')}
   }   
@@ -53,28 +56,34 @@ const CampaignPage = props =>{
 
   const [data, setData] = useState(null);
 
-  useEffect(()=>{
-    fetch(fetchURL, {
+  useEffect( async ()=>{
+    try {
+    const res = await fetch(fetchURL, {
       method: 'GET'
-    })
-      .then(resp => resp.json()) 
-      .then(resp => {
-        console.log(resp)
+    });
+    const result = await res.json();
+    console.log(result)
         // console.log(campaignInfo)
-        setData(resp)
-      })
-      .catch(err=>{console.log(err)})
+    setData(result)
+      }
+    catch(err)
+      {console.log(err)}
   },[])
 
+const cancelPress = () => {
+  navigate("../", { state: { loginState: true, username: username}, replace: true });
+ }
 
 // ------------------------------- Return HTML elements -----------------------------------------------------
   return (
-    <main>
+    createPortal(
+    <main className="modal-wrapper">
+      <div className='modal'>
       <div className = "campaign">
-        <h1 className = "campaignTitle">BRING BACK THE</h1>
-        <h2 className = "campaignCompany">From <a>Mcdonde</a></h2>
-        <h4 className = "campaignPoster">Campaign Started By</h4>
-        <p className="campaignDescription">Insert description here</p>
+        <h1 className = "campaignTitle">BRING BACK THE {name}</h1>
+        <h2 className = "campaignCompany">From <a href = "mcdonalds.com">{company}</a></h2>
+        <h4 className = "campaignPoster">Campaign Started By {username}</h4>
+        <p className="campaignDescription">{description}</p>
         <div className = "commentBox">
           {data && data.map(comments => <p> {comments.comment} <i>posted by {comments.username}</i></p>)}
         </div>
@@ -84,7 +93,11 @@ const CampaignPage = props =>{
           </div>
         <button type="button" className="btnMain" onClick={addComment}>Add Comment</button>
       </div>
-    </main>
+      </div>
+      <button type="button" className="btnCancel" onClick={cancelPress}>Close</button>
+    </main>,
+     document.getElementById("modal_root")
+    )
   );
 
 };

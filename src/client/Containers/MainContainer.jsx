@@ -1,12 +1,14 @@
 import React from 'react';
-import Campaign from './CampainContainer.jsx'
+import CampaignContainer from './CampaignContainer.jsx'
+import { Outlet } from 'react-router-dom';
 
 
 const Main = (props) => {
 
 return (
     <div>
-        <Campaign />
+        <CampaignContainer />
+        <Outlet />
     </div>
 )
 

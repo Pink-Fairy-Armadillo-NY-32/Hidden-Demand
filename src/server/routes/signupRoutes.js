@@ -17,7 +17,7 @@ router.post('/', signupController.createUser, sessionController.createSession, c
   //sets a cookie
   //starts a session?
   
-  return res.status(201).json(res.locals.user_id);
+  return res.status(201).json({user_id: res.locals.user_id, username: res.locals.username});
 });
 
 //UPDATE REQUEST TO /signup

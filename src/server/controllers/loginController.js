@@ -7,7 +7,7 @@ loginController.userLogin = async (req, res, next) =>{
   console.log(req.body);
   const { username, password } = req.body;
   //query password from db based on username
-  const passwordQuery = `SELECT password ,user_id FROM users WHERE username = $1 `
+  const passwordQuery = `SELECT password ,user_id, username FROM users WHERE username = $1 `
   
   try{
     //grab saved password from database
@@ -33,8 +33,11 @@ loginController.userLogin = async (req, res, next) =>{
     return res.status(404).json({message:"username or password does not exist"});
   }
   //if provided username and password are correct, move on to next middleware
-  res.locals.user_id = rows[0].user_id
+  res.locals.user_id = rows[0].user_id;
+  console.log(rows);
+  res.locals.username = rows[0].username;
   console.log(res.locals.user_id); //just the user_id
+  console.log(res.locals.username);
   console.log('login successful!')
     return next();
     

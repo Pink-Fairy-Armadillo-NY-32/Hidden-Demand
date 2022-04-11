@@ -31,14 +31,17 @@ signupController.createUser = async (req, res, next) => {
       //if username and email are both unique, then create new user
     const insertQuery  = `
     INSERT INTO users (username, email, password)
-    VALUES ($1, $2, $3) RETURNING user_id;
+    VALUES ($1, $2, $3) RETURNING user_id, username;
     `;
   const safePassword = await bcrypt.hash(password, 10);
     
     const params = [username, email, safePassword];
      const response = await User.query(insertQuery, params);
+     console.log(response)
     res.locals.user_id = response.rows[0].user_id;
+    res.locals.username = response.rows[0].username;
     console.log(res.locals.user_id); 
+    console.log(res.locals.username); 
     console.log('New user created!')
     return next();
     }

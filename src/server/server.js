@@ -2,12 +2,15 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 app = express();
+const cookieParser = require('cookie-parser')
+const sessionController = require('./controllers/sessionController')
 
 const PORT = process.env.PORT || 3000;
 
 //PARSE REQUEST BODY
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
+app.use(cookieParser());
 
 
 //Connect to Database Here ?
@@ -16,7 +19,7 @@ app.use(express.json());
 
 //ROUTES
 
-//MAIN PAGE - selecting sign up button will redirect to signup endpoint
+//MAIN PAGE - 
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '.../index.html'));
 });
@@ -33,7 +36,10 @@ app.use('/login', require('./routes/loginRoutes.js'));
 //SIGNUP ROUTES
 app.use('/signup', require('./routes/signupRoutes'));
 
-
+//delete session and cookie when 
+app.delete('/logout', sessionController.deleteSession,(req,res) =>{
+  res.status(200).json({message:'Logged out successfully'})
+})
 
 
 //ERROR HANDLING

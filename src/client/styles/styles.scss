@@ -119,3 +119,13 @@ h1 {
     float:unset;
     margin-top: auto;
 }
+.errorMessage {
+    color: orange;
+    font-size: medium;
+    width: 100%;
+    margin-top: 5px;
+    border-color: white;
+    border-style: solid;
+    border: 2px;
+    font-style: oblique;
+}

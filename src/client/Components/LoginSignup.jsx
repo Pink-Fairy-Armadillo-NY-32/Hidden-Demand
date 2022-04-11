@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 //import { Link, withRouter } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
+import regeneratorRuntime from "regenerator-runtime";
+
 
 const LoginSignup = props => {
   let navigate = useNavigate();    
+  const [errorMessage, setErrorMessage] = useState('');
  
-
   // Handles input boxes for storage of variable names
   const useInput = init => {
     const [ value, setValue ] = useState(init);
@@ -21,63 +23,79 @@ const LoginSignup = props => {
    const [ password, passwordOnChange ] = useInput('');
    const [ email, emailOnChange ] = useInput('');
     
-  const sendSignUpRequest = ()=>{
+  const sendSignUpRequest = async ()=>{
     console.log('sending sign up request')
-    if (username === ''){console.log('username must be input')}
-    if (password === ''){console.log('password must be input')}
-    if (email === ''){console.log('email must be input')}
-    if (username !== '' && password !== '' && email !== ''){
+    if (username === ''){setErrorMessage('username must be input')}
+    if (password === ''){setErrorMessage('password must be input')}
+    if (email === ''){setErrorMessage('email must be input')}
+    if (username !== '' && password !== '' && email !== '') {
       const requestBody = {
         username,
         password,
         email
       }
-      
-      fetch('/signup', {// WHAT IS THE ENDPOINT HERE ? <<<<<<<<-------------------------------
+      try {
+        const resp = await fetch('/signup', {// WHAT IS THE ENDPOINT HERE ? <<<<<<<<-------------------------------
 
-        method: 'POST',
-        headers: {
-        'Content-Type': 'Application/JSON'
-        },
-        body: JSON.stringify(requestBody)
-      })  
-        .then(resp => resp.json())// WHAT IS THE RESPONSE HERE? WE USING COOKIES?
-        .then(()=>{console.log(`success!`)})
-        .then(() => {
-          //history.pushState({loggedIn: true}, "signup success", '../');
-          navigate("../", { state: { loginState: true, userId: 'tbd'}, replace: true });
-        })
-        .catch(err=>{console.log(err)})
+          method: 'POST',
+          headers: {
+          'Content-Type': 'Application/JSON'
+          },
+          body: JSON.stringify(requestBody)
+        })  
+        if (resp.status === 404){
+          const response = await resp.json();
+          setErrorMessage(response.message);
+          return;
+        } else 
+        {
+          const response = await resp.json();
+          const user_id = response.user_id;
+          const username = response.username;
+          navigate("../", { state: { loginState: true, user_id: user_id, username: username}, replace: true });
+        }
+        }
+        catch (err) {
+            console.log("error handling", err);
+            console.log(err)}
+        }
+      else {return console.log('check errors above')}
 
-    }
-    else {return console.log('check errors above')}
   }
 
-  const sendLogInRequest = ()=>{
+  const sendLogInRequest = async ()=>{
     console.log('sending log in request')
-    if (username === ''){console.log('username must be input')}
-    if (password === ''){console.log('password must be input')}
+    if (username === ''){setErrorMessage('username must be input')}
+    if (password === ''){setErrorMessage('password must be input')}
     if (username !== '' && password !== ''){
       const requestBody = {
         username,
         password
       }
-
-      fetch('/login', {// WHAT IS THE ENDPOINT HERE ? <<<<<<<<-------------------------------
+      try { 
+      const resp = await fetch('/login', {// WHAT IS THE ENDPOINT HERE ? <<<<<<<<-------------------------------
         method: 'POST',
         headers: {
         'Content-Type': 'Application/JSON'
         },
         body: JSON.stringify(requestBody)
-      })  
-        .then(resp => resp.json()) // WHAT IS THE RESPONSE HERE? WE USING COOKIES?
-        .then(()=>{
-          history.pushState({loggedIn: true}, "signup success", '../');
-          navigate("../", { state: { loginState: true, userId: 'tbd', history: history.state }, replace: true });
-        })
-        .catch(err=>{console.log(err)})
-
-    }
+      })
+      if (resp.status === 404){
+        const response = await resp.json();
+        setErrorMessage(response.message);
+        return;
+      } else 
+      {
+        const response = await resp.json();
+        const user_id = response.user_id;
+        const username = response.username;
+        navigate("../", { state: { loginState: true, user_id: user_id, username: username}, replace: true });
+      }
+      }
+      catch (err) {
+          console.log("error handling", err);
+          console.log(err)}
+      }
     else {return console.log('check errors above')}
   }
 
@@ -131,7 +149,9 @@ const LoginSignup = props => {
 
             {/* need to change this to conditionally render based on whether signing up or logging in */}
             {emailInputDiv}
-
+          <div>
+          <label className="errorMessage">{errorMessage}</label>
+          </div>
           <button type="button" className="btnMain" onClick={buttonPress}>{buttonText}</button>
           <button type="button" className="btnCancel" onClick={cancelPress}>Cancel</button>
         </div>

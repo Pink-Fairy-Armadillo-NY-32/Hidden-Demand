@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import App from "./App.jsx";
 import LoginSignup from './Components/LoginSignup.jsx';
+import AddCampaign from './Components/AddCampaign.jsx';
 
 render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ render(
       <Route path="/" element={<App />} >
         <Route path="login" element={<LoginSignup type={'login'}/>} />
         <Route path="signup" element={<LoginSignup type={'signup'}/>} />
+        <Route path="campaign" element={<AddCampaign />} />
       </Route>
       <Route
       path="*"

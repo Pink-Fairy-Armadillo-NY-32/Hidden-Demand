@@ -1,36 +1,48 @@
 const User = require('../models/signupModel.js')
 const signupController = {};
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 signupController.createUser = async (req, res, next) => {
   console.log('entered createUser middleware')
-  console.log(req.body);
+  console.log('reqbody', req.body);
   const {username, email, password} = req.body;
+  //Below queries will be used to verify provided username and email are unique.
+  const existingUsernameQuery = `SELECT username FROM users WHERE Username='${username}'`
+  const existingEmailQuery=`SELECT email FROM users WHERE Username='${email}'`
+  
 
-  
-  // const safePassword = await bcrypt.hash(password, 10);
-  // console.log(safePassword)
-  // console.log(typeof safePassword)
-  
   try{
-    const text = `
-    INSERT INTO users (username, email, password)
-    VALUES ($1, $2, $3) 
-    `;
+    //check to see if provided username already exists in database
+    const existingUsernameObject = await User.query(existingUsernameQuery)
+    console.log(existingUsernameObject)
+    //check to see if provided email already exists in database
+    const existingEmailObject = await User.query(existingEmailQuery)
+    console.log(existingEmailObject)
     
-    const params = [username, email, password];
-    const result = await User.query(text, params);
-    res.locals.user = result.Result;
-    // const existing = ``
-    // const existingUsername = await User.query(username)
-    //if(existingUsername === username){
-    //   return res.send('username already exists')
-    // }
-
-    console.log(result);
-    //what does result return? not sure at the moment - do we need to redirect to root endpoint?
-    // res.locals.newUser = JSON.stringify(result);
+    if(existingUsernameObject.rows.length>0) {
+      console.log('username already exists')
+     
+      return res.status(404).json({message: 'username already exists'})
+    } else if (existingEmailObject.rows.length>0){
+      console.log('email already in use');
+      return res.status(404).json({message: 'email already in use'})
+    }else {
+      
+      //if username and email are both unique, then create new user
+    const insertQuery  = `
+    INSERT INTO users (username, email, password)
+    VALUES ($1, $2, $3) RETURNING user_id;
+    `;
+  const safePassword = await bcrypt.hash(password, 10);
+    
+    const params = [username, email, safePassword];
+     const response = await User.query(insertQuery, params);
+    res.locals.user_id = response.rows[0].user_id;
+    console.log(res.locals.user_id); 
+    console.log('New user created!')
     return next();
+    }
+    
   }
   catch(err){
     console.log(err)

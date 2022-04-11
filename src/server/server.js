@@ -13,10 +13,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-//Connect to Database Here ?
-
-
-
 //ROUTES
 
 //MAIN PAGE - 
@@ -36,8 +32,8 @@ app.use('/login', require('./routes/loginRoutes.js'));
 //SIGNUP ROUTES
 app.use('/signup', require('./routes/signupRoutes'));
 
-//delete session and cookie when 
-app.delete('/logout', sessionController.deleteSession,(req,res) =>{
+//delete session and cookie after user logs out (not connect to frontend at the moment)
+app.post('/logout', sessionController.deleteSession,(req,res) =>{
   res.status(200).json({message:'Logged out successfully'})
 })
 
@@ -54,8 +50,8 @@ app.use((err, req, res, next) => {
    message: {err: 'An error occured'}
  }
  const errorObj = Object.assign({}, defaultError, err);
+ console.log(errorObj);
  return res.status(errorObj.status).json(errorObj.message);
 });
 
-/** CHANGED PORT ARGUMENT */
-app.listen(3000, ()=> {console.log(`Listening on port ${PORT}...`);});
+app.listen(PORT, ()=> {console.log(`Listening on port ${PORT}...`);});

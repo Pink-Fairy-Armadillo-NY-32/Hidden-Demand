@@ -7,7 +7,7 @@ const Main = (props) => {
 return (
     <div>
         <Campaign />
-        <AddCampaign />
+        {/* <AddCampaign /> */}
     </div>
 )
 

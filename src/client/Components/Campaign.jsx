@@ -25,7 +25,7 @@ const CampaignPage = props =>{
   const [ comment, commentOnChange ] = useInput('');
   
   // Function for adding comment to database
-  const addComment = ()=>{
+  const addComment = async ()=>{
     console.log('adding comment!')
 
     if (comment === ''){console.log('no comment was input')}
@@ -33,22 +33,20 @@ const CampaignPage = props =>{
       const requestBody = {
         comment
       }
-      
-      fetch(fetchURL, {
+    try {  
+      const res = await fetch(fetchURL, {
         method: 'POST',
         headers: {
         'Content-Type': 'Application/JSON'
         },
         body: JSON.stringify(requestBody)
-      })  
-        .then(resp => resp.json())
-        .then(()=>{console.log(`success!`)})
-        .then(() => {
-          navigate("/",{state: {loginState: true, username: state.username, userid: state.userid}}, {replace: true });
-          return;
-        })
-        .catch(err=>{console.log(err)})
+      });
+      const result = await res.json();
 
+      }
+      catch(err) {
+        console.log(err)
+      }
     }
     else {return console.log('check errors above')}
   }   
@@ -58,22 +56,22 @@ const CampaignPage = props =>{
 
   const [data, setData] = useState(null);
 
-  useEffect(()=>{
-    fetch(fetchURL, {
+  useEffect( async ()=>{
+    try {
+    const res = await fetch(fetchURL, {
       method: 'GET'
-    })
-      .then(resp => resp.json()) 
-      .then(resp => {
-        console.log(resp)
+    });
+    const result = await res.json();
+    console.log(result)
         // console.log(campaignInfo)
-        setData(resp)
-      })
-      .catch(err=>{console.log(err)})
+    setData(result)
+      }
+    catch(err)
+      {console.log(err)}
   },[])
 
 const cancelPress = () => {
-  history.pushState({loggedIn: false}, "canceled", '../');
-  navigate("../", { state: { loginState: false, userId: 'tbd', history: history.state }, replace: true });
+  navigate("../", { state: { loginState: true, username: username}, replace: true });
  }
 
 // ------------------------------- Return HTML elements -----------------------------------------------------

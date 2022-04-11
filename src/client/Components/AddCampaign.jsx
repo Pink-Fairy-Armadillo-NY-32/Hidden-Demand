@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 const AddCampaign = (props) => {
   let navigate = useNavigate(); 
   const {state} = useLocation();
-  console.log(state);
+  // console.log(state);
 
   // Handles input boxes for storage of variable names
   const useInput = init => {

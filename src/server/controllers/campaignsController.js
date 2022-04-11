@@ -2,9 +2,21 @@ const db = require('../models/signupModel');
 const campaigns = {};
 
 campaigns.getAllCampaigns = async (req, res, next) => {
-  const text = `SELECT campaign.*, users.username FROM campaign INNER JOIN users ON campaign.posted_by = users.user_id`;
+  const text = `
+  SELECT campaign.*, users.username 
+    FROM campaign 
+      INNER JOIN users 
+        ON campaign.posted_by = users.user_id`
+  // SELECT COUNT(campaign_id) AS numComments 
+  //   FROM user_comments WHERE campaign_id = ;
+      
+  
   const { rows } = await db.query(text);
+  
+
+  // const count = `SELECT COUNT(campaign_id) AS numComments FROM user_comments WHERE campaign_id = ${}`
   res.locals.campaigns = rows;
+  console.log(res.locals.campaigns)
   return next();
 }
 

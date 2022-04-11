@@ -4,14 +4,14 @@ import React, { useState } from 'react';
 import './styles/styles.scss';
 
 const App = () => {
-    const [loggedIn, setLogin] = useState(false);
+    
     return (
      <div className="app">
        <section>
-      <Nav loginState={loggedIn}/>
+      <Nav />
        </section>
        <section>
-      <Main loginState={loggedIn}/>
+      <Main />
        </section>
      </div>
     );

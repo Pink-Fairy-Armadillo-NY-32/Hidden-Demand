@@ -5,13 +5,7 @@ $tertiarycolor: complement($maincolor);
 body {
     font-family: 'Oswald', 'sans-serif';
 }
-  .top {
-    display: block;
-    margin-top: 10px;
-    margin-left: 15px;
-  }
-  
-  #headerbar {
+#headerbar {
       background-color: $maincolor;
       height: 60px;
       width: 100%;
@@ -19,15 +13,31 @@ body {
       display: flex;
       justify-content: space-between;
   }
-
+.hidden {
+    display: block;
+    margin-top: 10px;
+    margin-left: 15px;
+    color: black;
+    background-color: $tertiarycolor;
+    height: fit-content;
+    width:fit-content;
+    font-weight: 400;
+    float: right;
+    justify-content: flex-end;
+    margin-right: 5px;
+    font-size: medium;
+}
 
 #headerbutton, #signupbutton {
+    display: block;
+    margin-top: 10px;
+    margin-left: 15px;
     color: black;
     background-color: $tertiarycolor;
     border-radius: 50px;
-    height: 2em;
-    width: 6em;
-    font-size: large;
+    height:fit-content;
+    width: fit-content;
+    font-size: medium;
     font-weight: 400;
     float: right;
     justify-content: flex-end;
@@ -128,4 +138,9 @@ h1 {
     border-style: solid;
     border: 2px;
     font-style: oblique;
+}
+
+.username {
+    display: flex;
+    float: left;
 }

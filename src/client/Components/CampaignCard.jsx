@@ -13,8 +13,8 @@ const CampaignCard = props =>{
         <p className = "companyName">Petition to: {company}</p>
         <p className = "postedBy">Posted by: {posted_by}</p>
         <p className = "comments">{numComments} comments</p>
-          <button type="campaignButton" className="vote" onClick={console.log('upvoted')}>upvote</button>
-          <button type="campaignButton" className="vote" onClick={console.log('downvoted')}>downvote</button>
+          <button type="campaignButton" className="vote" >upvote</button>
+          <button type="campaignButton" className="vote" >downvote</button>
       </div>
     </main>
   );

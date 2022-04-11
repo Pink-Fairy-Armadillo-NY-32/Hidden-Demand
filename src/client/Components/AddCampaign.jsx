@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
 const AddCampaign = (props) => {
-
   let navigate = useNavigate(); 
+  const {state} = useLocation();
+  console.log(state);
 
   // Handles input boxes for storage of variable names
   const useInput = init => {
@@ -46,8 +47,8 @@ const AddCampaign = (props) => {
         .then(resp => resp.json())
         .then(()=>{console.log(`success!`)})
         .then(() => {
-          history.pushState({loggedIn: true}, "signup success", '../');
-          navigate("../", { state: { loginState: true, userId: 'tbd'}, replace: true });
+          navigate("/",{state: {loginState: true, username: state.username}}, {replace: true });
+          return;
         })
         .catch(err=>{console.log(err)})
 
@@ -56,8 +57,8 @@ const AddCampaign = (props) => {
   }   
 
   const cancelPress = () => {
-    history.pushState({loggedIn: false}, "canceled", '../');
-    navigate("../", { state: { loginState: false, userId: 'tbd', history: history.state }, replace: true });
+    navigate("/", {state: {loginState: true, username: state.username}}, { replace: true });
+    return;
    }
 
   

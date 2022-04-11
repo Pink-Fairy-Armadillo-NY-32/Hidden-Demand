@@ -6,37 +6,40 @@ signupController.createUser = async (req, res, next) => {
   console.log('entered createUser middleware')
   console.log('reqbody', req.body);
   const {username, email, password} = req.body;
+  //Below queries will be used to verify provided username and email are unique.
   const existingUsernameQuery = `SELECT username FROM users WHERE Username='${username}'`
   const existingEmailQuery=`SELECT email FROM users WHERE Username='${email}'`
   
 
   try{
-    //check to see if username is already taken
-    
+    //check to see if provided username already exists in database
     const existingUsernameObject = await User.query(existingUsernameQuery)
     console.log(existingUsernameObject)
+    //check to see if provided email already exists in database
     const existingEmailObject = await User.query(existingEmailQuery)
     console.log(existingEmailObject)
     
     if(existingUsernameObject.rows.length>0) {
       console.log('username already exists')
      
-      return res.status(200).json({message: 'username already exists'})
+      return res.status(404).json({message: 'username already exists'})
     } else if (existingEmailObject.rows.length>0){
       console.log('email already in use');
-      return res.status(200).json({message: 'email already in use'})
+      return res.status(404).json({message: 'email already in use'})
     }else {
-      console.log('New user')
+      
       //if username and email are both unique, then create new user
     const insertQuery  = `
     INSERT INTO users (username, email, password)
-    VALUES ($1, $2, $3) 
+    VALUES ($1, $2, $3) RETURNING user_id;
     `;
   const safePassword = await bcrypt.hash(password, 10);
     
     const params = [username, email, safePassword];
-    await User.query(insertQuery, params);
-    
+     const response = await User.query(insertQuery, params);
+    res.locals.user_id = response.rows[0].user_id;
+    console.log(res.locals.user_id); 
+    console.log('New user created!')
     return next();
     }
     

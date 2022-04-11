@@ -14,6 +14,7 @@ CREATE TABLE public.campaign(
     "id" serial NOT NULL,
     "name" varchar NOT NULL,
     "posted_by" bigint NOT NULL,
+    "category" varchar,
     "company" varchar,
     "url" varchar,
     "description" varchar,
@@ -40,7 +41,14 @@ CREATE TABLE public.user_comments(
     "comment" varchar,
     "campaign_id" bigint NOT NULL,
     "references" varchar,
-    "user_id" bigint NOT NULL
+    "commenter" bigint NOT NULL
+) WITH (
+  OIDS = FALSE
+);
+
+CREATE TABLE public.session(
+  "cookie" bigint NOT NULL,
+  "timestamp" date
 ) WITH (
   OIDS = FALSE
 );
